@@ -3,24 +3,29 @@
  */
 
 var app = require("../core/nrs");
+var db = require("../database/database");
 
 function index(req, res) {
     var html = app.render("index", {title : "Node Repo"});
     res.write(html);
 }
 
-function store(req, res) {
+function create(req, res) {
     console.info(req.body);
-    //console.info(JSON.parse(req.body));
-    if (req.body && req.body.data) {
-        try {
-            var data = JSON.parse(req.body.data);
-            console.info(data);
-        } catch (exception) {
-            console.info(exception);
-        }
+    if (req.body) {
+        db.load();
+        console.info(db.User);
+        db.User.create(req.body).then(function(user) {
+            res.write(JSON.stringify(user.dataValues));
+            res.end();
+        });
     }
 }
 
+function create_db() {
+    db.initialize(true);
+}
+
 exports.index = index;
-exports.store = store;
+exports.create = create;
+exports.create_db = create_db;

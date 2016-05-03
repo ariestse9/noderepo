@@ -49,32 +49,39 @@ app.route = function(req, res) {
     var path = url.parse(req.url).pathname;
 
     if (typeof this.mapping[path] === "function") {
-        //res.writeHead(200, {"Content-Type": "text/html"});
-        var routers = this.mapping;
-        if (req.method == 'GET') {
-            routers[path](req, res);
-        } else if (req.method == "POST") {
-            var body = "";
-            req.on("data", function(data) {
-                body += data;
-                if (body.length > 1e6) {
-                    req.connection.destroy();
-                }
-            });
-            req.on("end", function() {
-                var content_type = req.headers["content-type"];
-                console.info(content_type);
-                switch (content_type) {
-                    case "application/json" :
-                        req.body = JSON.parse(body);
-                        break;
-                }
+        try {
+            var routers = this.mapping;
+            if (req.method == 'GET') {
                 routers[path](req, res);
-            });
-        } else {
+            } else if (req.method == "POST") {
+                var body = "";
+                req.on("data", function(data) {
+                    body += data;
+                    if (body.length > 1e6) {
+                        req.connection.destroy();
+                    }
+                });
+                req.on("end", function() {
+                    try {
+                        var content_type = req.headers["content-type"];
+                        console.info(content_type);
+                        switch (content_type) {
+                            case "application/json" :
+                                req.body = JSON.parse(body);
+                                break;
+                        }
+                        routers[path](req, res);
+                    } catch (ex) {
+                        res.write(app.render("error", {message : ex, error: {status : 500, stack : ex.stack}}));
+                        res.end();
+                    }
+                });
+            } else {
 
+            }
+        } catch (ex) {
+            res.write(this.render("error", {message : ex, error: {status : 500, stack : ex}}));
         }
-        res.end();
     } else {
         res.write(this.render("error", {message : path + " not found!", error: {status : 404, stack : ""}}));
         res.end();

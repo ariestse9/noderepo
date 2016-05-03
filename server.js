@@ -2,7 +2,7 @@
  * @author Sean Zhao
  */
 
-var debug = require('debug')('noderepo:server');
+//var debug = require('debug')('noderepo:server');
 var http = require("http");
 
 var routes = require("./routes/index");
@@ -12,14 +12,15 @@ var ejs = require('ejs');
 app.load("error");
 app.load("index");
 app.use("/", routes.index);
-app.use("/store", routes.store);
+app.use("/create", routes.create);
+app.use("/create_db", routes.create_db);
 
 var port = process.env.PORT || '3000';
 
-if (process) {
-    console.info("> " + process.env);
-}
-
-http.createServer(function(req, res) {
+var server = http.createServer(function(req, res) {
     app.route(req, res);
-}).listen(port);
+});
+server.on("clientError", function(err, socket) {
+    console.info(err);
+});
+server.listen(port);
