@@ -1,0 +1,24 @@
+{
+  "name": "noderepo",
+  "version": "1.0.0",
+  "description": "Store json data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ariestse9/noderepo.git"
+  },
+  "author": "sean",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ariestse9/noderepo/issues"
+  },
+  "dependencies": {
+    "debug": "~2.2.0",
+    "ejs": "~2.3.3"
+  },
+  "homepage": "https://github.com/ariestse9/noderepo#readme"
+}
