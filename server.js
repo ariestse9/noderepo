@@ -16,6 +16,10 @@ app.use("/store", routes.store);
 
 var port = process.env.PORT || '3000';
 
+if (process) {
+    console.info("> " + process.env);
+}
+
 http.createServer(function(req, res) {
     app.route(req, res);
 }).listen(port);
