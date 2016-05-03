@@ -5,7 +5,7 @@
 var Sequelize = require('sequelize');
 var database_url = process.env.DATABASE_URL || 'postgres://noderepo:noderepo@localhost:5432/noderepo';
 var sequelize = new Sequelize(database_url);
-console.info(process.env.DATABASE_URL);
+console.info("> Database: " + database_url);
 
 var db = module.exports = {};
 
