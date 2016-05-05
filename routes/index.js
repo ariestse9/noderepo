@@ -22,10 +22,19 @@ function create(req, res) {
     }
 }
 
+function list(req, res) {
+    db.load();
+    db.User.findAndCountAll().then(function(result) {
+        res.write(JSON.stringify(result));
+        res.end();
+    });
+}
+
 function create_db() {
     db.initialize(true);
 }
 
 exports.index = index;
 exports.create = create;
+exports.list = list;
 exports.create_db = create_db;

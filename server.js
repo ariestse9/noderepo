@@ -13,6 +13,7 @@ app.load("error");
 app.load("index");
 app.use("/", routes.index);
 app.use("/create", routes.create);
+app.use("/list", routes.list);
 app.use("/create_db", routes.create_db);
 
 var port = process.env.PORT || '3000';
