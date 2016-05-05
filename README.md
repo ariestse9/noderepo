@@ -26,4 +26,5 @@ Example:
 
 ####list
 URL:    https://noderepo.herokuapp.com/list
+
 Method: Get
