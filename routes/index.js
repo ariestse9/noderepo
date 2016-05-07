@@ -8,6 +8,7 @@ var db = require("../database/database");
 function index(req, res) {
     var html = app.render("index", {title : "Node Repo"});
     res.write(html);
+    res.end();
 }
 
 function create(req, res) {

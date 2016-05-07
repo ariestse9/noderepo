@@ -45,7 +45,7 @@ app.use = function(path, router) {
     //console.info("use " + path + " to " + router);
 }
 
-app.route = function(req, res) {
+app.route = function(req, res, exptionHandler) {
     var path = url.parse(req.url).pathname;
 
     if (typeof this.mapping[path] === "function") {
@@ -72,20 +72,23 @@ app.route = function(req, res) {
                         }
                         routers[path](req, res);
                     } catch (ex) {
-                        res.write(app.render("error", {message : ex, error: {status : 500, stack : ex.stack}}));
-                        res.end();
+                        this.execptionHandler({title: "Server error.", message : ex, error: {status : 500, stack : ex.stack}});
                     }
                 });
             } else {
 
             }
         } catch (ex) {
-            res.write(this.render("error", {message : ex, error: {status : 500, stack : ex}}));
+            this.execptionHandler({title: "Server error.", message : ex, error: {status : 500, stack : ex}}, res);
         }
     } else {
-        res.write(this.render("error", {message : path + " not found!", error: {status : 404, stack : ""}}));
-        res.end();
+        this.execptionHandler({title: "File not found.", message : path + " not found!", error: {status : 404, stack : ""}}, res)
     }
+}
+
+app.execptionHandler = function(exObj, res) {
+    res.write(this.render("error", exObj));
+    res.end();
 }
 
 app.init();
