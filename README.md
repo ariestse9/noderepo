@@ -18,7 +18,7 @@ Response parameters:
 
 |name|type|describe|
 |:--|:--|:--|
-|result|string|0-success 1-fail|
+|result|string|1-success 0-fail|
 |resultMessage|string|result describe|
 |id|number|data id in the database|
 
