@@ -87,7 +87,6 @@ app.route = function(req, res, exptionHandler) {
             execptionHandler({title: "Server error.", message : ex, error: {status : 500, stack : ex}}, res);
         }
     } else {
-        console.info(ex);
         execptionHandler({title: "File not found.", message : path + " not found!", error: {status : 404, stack : ""}}, res)
     }
 }
