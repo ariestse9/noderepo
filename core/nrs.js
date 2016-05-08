@@ -48,6 +48,7 @@ app.use = function(path, router) {
 app.route = function(req, res, exptionHandler) {
     var path = url.parse(req.url).pathname;
     var execptionHandler = this.execptionHandler;
+    console.info(">>> Path:" + path + ".");
     if (typeof this.mapping[path] === "function") {
         try {
             var routers = this.mapping;
