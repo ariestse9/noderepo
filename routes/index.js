@@ -17,7 +17,8 @@ function create(req, res) {
         db.load();
         console.info(db.User);
         db.User.create(req.body).then(function(user) {
-            res.write(JSON.stringify(user.dataValues));
+            //res.write(JSON.stringify(user.dataValues));
+            res.write("1");
             res.end();
         });
     }

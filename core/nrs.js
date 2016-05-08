@@ -93,7 +93,8 @@ app.route = function(req, res, exptionHandler) {
 }
 
 app.execptionHandler = function(exObj, res) {
-    res.write(app.render("error", exObj));
+    //res.write(app.render("error", exObj));
+    res.write("0");
     res.end();
 }
 

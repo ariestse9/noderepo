@@ -5,22 +5,39 @@ URL:    https://noderepo.herokuapp.com/create
 
 Method: Post
 
-Fields:
+Request parameters:
 
-|field name|data type|describe|
+|name|type|required|describe|
+|:--|:--|:--|:--|
+|name|string|Y|user name|
+|firstName|string|Y|first name|
+|lastName|string|Y|last name|
+|email|string|Y|E-Mail|
+
+Response parameters:
+
+|name|type|describe|
 |:--|:--|:--|
-|name|string|user name|
-|firstName|string|first name|
-|lastName|string|last name|
-|email|string|E-Mail|
+|result|string|0-success 1-fail|
+|resultMessage|string|result describe|
+|id|number|data id in the database|
 
-Example:
+Request example:
 ```json
 {
     "name":"Sean",
     "firstName": "Sean",
     "lastName": "Zhao",
     "email": "ariestse9@gmail.com"
+}
+```
+
+Response example:
+```json
+{
+    "result": "1",
+    "result": "success",
+    'id': 1000
 }
 ```
 
