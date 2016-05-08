@@ -47,7 +47,7 @@ app.use = function(path, router) {
 
 app.route = function(req, res, exptionHandler) {
     var path = url.parse(req.url).pathname;
-
+    var execptionHandler = this.execptionHandler;
     if (typeof this.mapping[path] === "function") {
         try {
             var routers = this.mapping;
@@ -64,7 +64,9 @@ app.route = function(req, res, exptionHandler) {
                 req.on("end", function() {
                     try {
                         var content_type = req.headers["content-type"];
-                        console.info(content_type);
+                        if (content_type == null || content_type == "") {
+                            throw new exception("content-type不能为空.");
+                        }
                         switch (content_type) {
                             case "application/json" :
                                 req.body = JSON.parse(body);
@@ -72,22 +74,22 @@ app.route = function(req, res, exptionHandler) {
                         }
                         routers[path](req, res);
                     } catch (ex) {
-                        this.execptionHandler({title: "Server error.", message : ex, error: {status : 500, stack : ex.stack}});
+                        execptionHandler({title: "Server error.", message : ex, error: {status : 500, stack : ex.stack}}, res);
                     }
                 });
             } else {
 
             }
         } catch (ex) {
-            this.execptionHandler({title: "Server error.", message : ex, error: {status : 500, stack : ex}}, res);
+            execptionHandler({title: "Server error.", message : ex, error: {status : 500, stack : ex}}, res);
         }
     } else {
-        this.execptionHandler({title: "File not found.", message : path + " not found!", error: {status : 404, stack : ""}}, res)
+        execptionHandler({title: "File not found.", message : path + " not found!", error: {status : 404, stack : ""}}, res)
     }
 }
 
 app.execptionHandler = function(exObj, res) {
-    res.write(this.render("error", exObj));
+    res.write(app.render("error", exObj));
     res.end();
 }
 
