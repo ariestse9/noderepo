@@ -69,11 +69,13 @@ app.route = function(req, res, exptionHandler) {
                         }
                         switch (content_type) {
                             case "application/json" :
+                                console.info(">>> JSON: " + body);
                                 req.body = JSON.parse(body);
                                 break;
                         }
                         routers[path](req, res);
                     } catch (ex) {
+                        console.info(ex);
                         execptionHandler({title: "Server error.", message : ex, error: {status : 500, stack : ex.stack}}, res);
                     }
                 });
@@ -81,9 +83,11 @@ app.route = function(req, res, exptionHandler) {
 
             }
         } catch (ex) {
+            console.info(ex);
             execptionHandler({title: "Server error.", message : ex, error: {status : 500, stack : ex}}, res);
         }
     } else {
+        console.info(ex);
         execptionHandler({title: "File not found.", message : path + " not found!", error: {status : 404, stack : ""}}, res)
     }
 }
