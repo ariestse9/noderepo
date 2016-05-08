@@ -36,8 +36,7 @@ Response example:
 ```json
 {
     "result": "1",
-    "result": "success",
-    'id': 1000
+    "result": "success"
 }
 ```
 
