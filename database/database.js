@@ -9,8 +9,65 @@ console.info("> Database: " + database_url);
 
 var db = module.exports = {};
 
-
 db.initialize = function(force) {
+    db.Log = sequelize.define('log', {
+        bid: {
+            type: Sequelize.STRING,
+            field: 'bid'
+        },
+        uid: {
+            type: Sequelize.STRING,
+            field: 'uid'
+        },
+        odid: {
+            type: Sequelize.STRING,
+            field: 'odid'
+        },
+        tdid: {
+            type: Sequelize.STRING,
+            field: 'tdid'
+        },
+        iidy: {
+            type: Sequelize.STRING,
+            field: 'iidy'
+        },
+        dir: {
+            type: Sequelize.STRING,
+            field: 'dir'
+        },
+        offset: {
+            type: Sequelize.STRING,
+            field: 'offset'
+        },
+        ip: {
+            type: Sequelize.STRING,
+            field: 'ip'
+        },
+        vl: {
+            type: Sequelize.STRING,
+            field: 'vl'
+        },
+        iidf: {
+            type: Sequelize.STRING,
+            field: 'iidf'
+        },
+        tday: {
+            type: Sequelize.STRING,
+            field: 'tday'
+        },
+        ttime: {
+            type: Sequelize.STRING,
+            field: 'ttime'
+        },
+        iids: {
+            type: Sequelize.STRING,
+            field: 'iids'
+        },
+        stat: {
+            type: Sequelize.STRING,
+            field: 'stat'
+        }
+    });
     db.User = sequelize.define('user', {
         name: {
             type: Sequelize.STRING,

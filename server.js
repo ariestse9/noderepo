@@ -6,6 +6,7 @@
 var http = require("http");
 
 var routes = require("./routes/index");
+var log = require("./routes/log");
 var app = require("./core/nrs");
 var ejs = require('ejs');
 
@@ -15,6 +16,8 @@ app.use("/", routes.index);
 app.use("/create", routes.create);
 app.use("/list", routes.list);
 app.use("/create_db", routes.create_db);
+app.use("/log/create", log.create);
+app.use("/log/list", log.list);
 
 var port = process.env.PORT || '3000';
 
